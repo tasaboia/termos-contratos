@@ -49,6 +49,7 @@ export const LayoutForm = ({ children }: IForm) => {
                 my: 1,
               }}
               fontFamily={BreeSerif.style.fontFamily}
+              marginTop={{ xs: "10rem", lg: 0 }}
             >
               Comece sua jornada com a gente
             </Typography>
