@@ -1,8 +1,4 @@
 "use client";
-export const metadata = {
-  title: "Psi do Futuro",
-  description: "",
-};
 import { ThemeProvider } from "@mui/material/styles";
 import { CssBaseline, StyledEngineProvider } from "@mui/material";
 import { createTheme, styled } from "@mui/material/styles";
