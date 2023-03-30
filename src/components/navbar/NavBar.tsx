@@ -9,25 +9,7 @@ import Image from "next/image";
 import Logo from "../../../public/imagens/logo.png";
 import Link from "next/link";
 
-interface Props {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
-  window?: () => Window;
-}
-
-export default function DrawerAppBar(props: Props) {
-  const { window } = props;
-  const [mobileOpen, setMobileOpen] = React.useState(false);
-
-  const handleDrawerToggle = () => {
-    setMobileOpen((prevState) => !prevState);
-  };
-
-  const container =
-    window !== undefined ? () => window().document.body : undefined;
-
+export default function DrawerAppBar() {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -36,7 +18,7 @@ export default function DrawerAppBar(props: Props) {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             <Image src={Logo.src} width="166" height="38" alt="logo" />
           </Typography>
-          <Box sx={{ display: { xs: "none", sm: "block" } }}>
+          <Box>
             <Button color="secondary" href="/login">
               Login
             </Button>
