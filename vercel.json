@@ -10,9 +10,6 @@
       "dest": "frontend/dist/$1"
     }
   ],
-  "env": {
-    "MONGODB_URI": "@mongodb-uri"
-  },
   "builds": [
     {
       "src": "backend/server.js",
