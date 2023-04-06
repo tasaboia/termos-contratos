@@ -1,0 +1,58 @@
+
+@font-face {
+    font-family: Bree;
+    src:local('BreeLight'), 
+    url('./Bree/Bree\ Light.otf') format('otf');
+    font-weight: 100;
+  }
+  
+  @font-face {
+    font-family: Bree;
+    src:local('BreeLightOblique'), 
+    url('./Bree/Bree\ Light\ Oblique.otf') format('otf');
+    font-weight: 100;
+    font-style: italic;
+  }
+  
+  @font-face {
+    font-family: Bree;
+    src:local('BreeRegular'), 
+    url('./Bree/Bree\ Regular.otf') format('otf');
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: Bree;
+    src:local('BreeRegularOblique'), 
+    url('./Bree/Bree\ Oblique.otf') format('otf');
+    font-style: italic;
+  }
+  
+  
+  @font-face {
+    font-family: Bree;
+    src:local('BreeBold'), 
+    url('./Bree/Bree\ Bold.otf') format('otf');
+    font-weight: 700;
+  }
+  
+  
+  @font-face {
+    font-family: Bree;
+    src:local('BreeBoldOblique'), 
+    url('./Bree/Bree\ Bold\ Oblique.otf') format('otf');
+    font-weight: 700;
+    font-style: italic;
+  }
+  
+  
+  
+  
+  @font-face {
+    font-family: Addington;
+    src: url('./Addington.CF/AddingtonCF-Regular.ttf') format('ttf');
+    font-style: normal;
+  }
+  
+  
+  
