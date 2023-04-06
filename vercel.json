@@ -10,6 +10,9 @@
       "dest": "frontend/$1"
     }
   ],
+  "env": {
+    "MONGODB_URI": "@mongodb-uri"
+  },
   "builds": [
     {
       "src": "backend/server.js",
@@ -19,7 +22,7 @@
       "src": "frontend/package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "frontend/build"
+        "outputDirectory": "frontend/build"
       }
     }
   ]
