@@ -16,7 +16,7 @@ export default function PDFSelect({ pdf, setPDF }: IProp) {
   const [arquivos, setArquivos] = React.useState([]);
 
   useEffect(() => {
-    http.get("/api/fileList").then((response) => {
+    http.get("/api/pdf/fileList").then((response) => {
       setArquivos(response.data);
     });
   }, []);

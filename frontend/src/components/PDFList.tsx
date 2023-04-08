@@ -10,16 +10,20 @@ import {
   ListItem,
   Typography,
 } from "@mui/material";
-
+import { v4 as uuidv4 } from "uuid";
 export default function PDFList() {
   const [arquivos, setArquivos] = useState([]);
   const toast = useRef<Toast>(null);
 
   useEffect(() => {
-    http.get("/api/fileList").then((response) => {
+    http.get("/api/pdf/fileList").then((response) => {
       setArquivos(response.data);
     });
   }, []);
+
+  useEffect(() => {
+    console.log(">>>>", arquivos);
+  }, [arquivos]);
 
   const showSuccess = () => {
     toast.current?.show({
@@ -79,16 +83,16 @@ export default function PDFList() {
       overflow="scroll"
     >
       <Typography>Lista de PDFs</Typography>
+      {arquivos.length === 0 && (
+        <Typography textAlign="center" color="#ccc" variant="body2">
+          Lista vazia
+        </Typography>
+      )}
       <List>
-        {arquivos.length === 0 && (
-          <Typography textAlign="center" color="#ccc" variant="body2">
-            Lista vazia
-          </Typography>
-        )}
         {arquivos?.map((item, key) => (
-          <>
+          <Box key={uuidv4()}>
             <ListItem
-              key={key}
+              key={uuidv4()}
               secondaryAction={
                 <IconButton
                   edge="end"
@@ -99,12 +103,11 @@ export default function PDFList() {
                 </IconButton>
               }
             >
-              <ListItem key={key + item}>
-                <Typography variant="body2">{item}</Typography>
-              </ListItem>
+              <Typography variant="body2">{item}</Typography>
             </ListItem>
+
             <Divider />
-          </>
+          </Box>
         ))}
       </List>
     </Box>

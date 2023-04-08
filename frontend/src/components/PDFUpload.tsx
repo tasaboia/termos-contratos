@@ -19,7 +19,7 @@ export default function PDFUpload() {
     formData.append("file", selectedFile);
 
     const response = await axios.post(
-      "http://localhost:3000/api/upload",
+      "http://localhost:3000/api/pdf/upload",
       formData,
       {
         headers: {
@@ -34,7 +34,7 @@ export default function PDFUpload() {
   return (
     <FileUpload
       name="file"
-      url={"http://localhost:3000/api/upload"}
+      url={"http://localhost:3000/api/pdf/upload"}
       multiple
       accept="file/*"
       maxFileSize={5000000}
