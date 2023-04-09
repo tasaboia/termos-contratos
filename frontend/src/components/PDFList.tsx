@@ -11,19 +11,29 @@ import {
   Typography,
 } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
+import axios from "axios";
+
+interface Arquivo {
+  name: string;
+}
+
 export default function PDFList() {
-  const [arquivos, setArquivos] = useState([]);
+  const [arquivos, setArquivos] = useState<Arquivo[]>([]);
   const toast = useRef<Toast>(null);
 
   useEffect(() => {
-    http.get("/api/pdf/fileList").then((response) => {
-      setArquivos(response.data);
-    });
+    axios
+      .get(
+        "https://us-central1-termos-contratos.cloudfunctions.net/api/pdfList"
+      )
+      .then((response) => {
+        const arquivosDaAPI = response.data?.pdfs;
+        const arquivosMapeados = arquivosDaAPI.map((arquivo: any) => ({
+          name: arquivo.name,
+        }));
+        setArquivos(arquivosMapeados);
+      });
   }, []);
-
-  useEffect(() => {
-    console.log(">>>>", arquivos);
-  }, [arquivos]);
 
   const showSuccess = () => {
     toast.current?.show({
@@ -64,7 +74,7 @@ export default function PDFList() {
   async function handleDelete(file: string) {
     try {
       const response = await http
-        .delete(`/api/deleteFile/${file}`)
+        .delete(`/pdfDelete/${file}`)
         .then((response) => {
           showSuccess();
         });
@@ -82,8 +92,7 @@ export default function PDFList() {
       }
       overflow="scroll"
     >
-      <Typography>Lista de PDFs</Typography>
-      {arquivos.length === 0 && (
+      {arquivos?.length === 0 && (
         <Typography textAlign="center" color="#ccc" variant="body2">
           Lista vazia
         </Typography>
@@ -97,13 +106,13 @@ export default function PDFList() {
                 <IconButton
                   edge="end"
                   aria-label="delete"
-                  onClick={() => handleDelete(item)}
+                  onClick={() => handleDelete(item.name)}
                 >
                   <DeleteIcon sx={{ color: "#D27F7F" }} />
                 </IconButton>
               }
             >
-              <Typography variant="body2">{item}</Typography>
+              <Typography variant="body2">{item.name}</Typography>
             </ListItem>
 
             <Divider />

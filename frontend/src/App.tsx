@@ -28,6 +28,8 @@ function App() {
   const [checkout, setCheckout] = useState("");
   const [product, setProduct] = useState("");
   const [link, setLink] = useState("");
+  const baseURL =
+    "https://us-central1-termos-contratos.cloudfunctions.net/api/";
 
   const handleCopyClick = () => {
     navigator.clipboard
@@ -64,7 +66,7 @@ function App() {
                 variant="contained"
                 onClick={() =>
                   setLink(
-                    `http://localhost:5173/Contrato/${type}/${pdf}/${checkout}/${product}`
+                    `https://termos-contratos.firebaseapp.com/Contrato/${type}/${pdf}/${checkout}/${product}`
                   )
                 }
               >
