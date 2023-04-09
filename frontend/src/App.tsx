@@ -12,6 +12,7 @@ import {
   Box,
   Button,
   CssBaseline,
+  Divider,
   Grid,
   IconButton,
   TextField,
@@ -21,7 +22,9 @@ import PDFUpload from "./components/PDFUpload";
 import CheckoutLink from "./components/CheckoutLink";
 import ProductName from "./components/ProductName";
 import CPFType from "./components/CPFType";
-
+import { BlockUI } from "primereact/blockui";
+import { Panel } from "primereact/panel";
+import NavBar from "./components/NavBar";
 function App() {
   const [type, setType] = useState("");
   const [pdf, setPDF] = useState("");
@@ -39,56 +42,55 @@ function App() {
   };
   return (
     <Box padding={2} height="100vh" bgcolor="#F3F3F3">
-      <Typography padding={2} variant="h1" color="#EF7779">
-        Gerenciador de termos <br /> para{" "}
-        <span style={{ fontStyle: "italic" }}>produtos</span>
-      </Typography>
+      <NavBar />
+
       <Grid container>
         <Grid item xs={12} md={6} lg={6} padding={2}>
-          <PDFUpload />
-          <PDFList />
+          <BlockUI blocked={false}>
+            <Panel header="Armazenamento">
+              <PDFUpload />
+              <PDFList />
+            </Panel>
+          </BlockUI>
         </Grid>
         <Grid item xs={12} md={6} lg={6} padding={2}>
-          <Box
-            display="flex"
-            flexDirection="column"
-            justifyContent="space-between"
-            height="100%"
-          >
-            <CPFType setType={setType} />
-            <PDFSelect setPDF={setPDF} pdf={pdf} />
-            <CheckoutLink checkout={checkout} setCheckout={setCheckout} />
-            <ProductName product={product} setProduct={setProduct} />
+          <BlockUI blocked={false}>
+            <Panel header="Criação da Página">
+              <CPFType setType={setType} />
+              <PDFSelect setPDF={setPDF} pdf={pdf} />
+              <CheckoutLink checkout={checkout} setCheckout={setCheckout} />
+              <ProductName product={product} setProduct={setProduct} />
 
-            <Box mt={2}>
-              <Button
-                disabled={!type || !pdf || !checkout || !product}
-                variant="contained"
-                onClick={() =>
-                  setLink(
-                    `https://termos-contratos.firebaseapp.com/Contrato/${type}/${pdf}/${checkout}/${product}`
-                  )
-                }
+              <Box mt={2}>
+                <Button
+                  disabled={!type || !pdf || !checkout || !product}
+                  variant="contained"
+                  onClick={() =>
+                    setLink(
+                      `https://termos-contratos.firebaseapp.com/Contrato/${type}/${pdf}/${checkout}/${product}`
+                    )
+                  }
+                >
+                  Gerar Link
+                </Button>
+              </Box>
+              <Box
+                mt={2}
+                borderRadius={"5px"}
+                border="1px solid #ccc"
+                display="flex"
+                alignItems="center"
+                justifyContent="space-between"
               >
-                Gerar Link
-              </Button>
-            </Box>
-            <Box
-              mt={2}
-              borderRadius={"5px"}
-              border="1px solid #ccc"
-              display="flex"
-              alignItems="center"
-              justifyContent="space-between"
-            >
-              <Typography mx={2}>
-                {link ? link : "Link para o cliente"}
-              </Typography>
-              <IconButton onClick={handleCopyClick}>
-                <ContentCopyIcon />
-              </IconButton>
-            </Box>
-          </Box>
+                <Typography mx={2}>
+                  {link ? link : "Link para o cliente"}
+                </Typography>
+                <IconButton onClick={handleCopyClick}>
+                  <ContentCopyIcon />
+                </IconButton>
+              </Box>
+            </Panel>
+          </BlockUI>
         </Grid>
       </Grid>
     </Box>
