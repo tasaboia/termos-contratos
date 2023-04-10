@@ -19,6 +19,7 @@ interface Arquivo {
 
 export default function PDFSelect({ pdf, setPDF }: IProp) {
   const [arquivos, setArquivos] = useState<Arquivo[]>([]);
+  const [labelPdf, setLabelPdf] = useState("");
 
   useEffect(() => {
     axios
@@ -35,6 +36,7 @@ export default function PDFSelect({ pdf, setPDF }: IProp) {
   }, []);
   const handleChange = (event: SelectChangeEvent) => {
     setPDF(event.target.value as string);
+    setLabelPdf(event.target.value as string);
   };
 
   return (
@@ -44,7 +46,7 @@ export default function PDFSelect({ pdf, setPDF }: IProp) {
         <Select
           labelId="termosecontratosl"
           id="termosecontratos"
-          value={pdf}
+          value={labelPdf}
           label="Termos&Contratos"
           onChange={handleChange}
         >
