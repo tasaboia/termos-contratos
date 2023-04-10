@@ -41,11 +41,11 @@ export default function ClientForm({ url }: IProp) {
   };
 
   return (
-    <React.Fragment>
+    <Box ml={4} mt={2}>
       <Typography variant="h6" gutterBottom>
         Informações
       </Typography>
-      <Grid container spacing={3} height="80vh" justifyContent="center">
+      <Grid container spacing={3} height="70vh" justifyContent="center">
         <Grid item xs={12} sm={6}>
           <TextField
             required
@@ -168,6 +168,6 @@ export default function ClientForm({ url }: IProp) {
           Enviar
         </Button>
       </Grid>
-    </React.Fragment>
+    </Box>
   );
 }
