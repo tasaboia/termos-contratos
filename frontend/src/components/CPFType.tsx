@@ -23,7 +23,6 @@ export default function CPFType({ setType }: IProp) {
         <RadioGroup
           row
           aria-labelledby="demo-radio-buttons-group-label"
-          defaultValue="guru"
           name="radio-buttons-group"
           onChange={handleChange}
         >

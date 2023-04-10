@@ -13,8 +13,16 @@ export default function NavBar() {
   const start = <img alt="logo" src={logo} height="40" className="mr-2"></img>;
 
   return (
-    <div className="card">
-      <Menubar model={items} start={start} />
+    <div>
+      <Menubar
+        model={items}
+        start={start}
+        style={{
+          position: "fixed",
+          width: "100%",
+          zIndex: 2,
+        }}
+      />
     </div>
   );
 }

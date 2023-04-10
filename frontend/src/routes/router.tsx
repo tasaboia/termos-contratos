@@ -11,7 +11,8 @@ export const router = createBrowserRouter([
   },
   {
     element: <Contract />,
-    path: "/Contrato/:type/:pdf/:checkout/:product",
+    // path: "/Contrato/:type/:pdf/:checkout/:product",
+    path: "/Contrato/:type/:pdf/:product",
 
     errorElement: <Typography>erro ao tentar rotear</Typography>,
   },

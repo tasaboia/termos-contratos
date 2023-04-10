@@ -7,7 +7,7 @@ import PDFList from "./components/PDFList";
 import PDFSelect from "./components/PDFSelect";
 import { InputText } from "primereact/inputtext";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Box,
   Button,
@@ -32,6 +32,7 @@ function App() {
   const [product, setProduct] = useState("");
   const [link, setLink] = useState("");
   const [url, setUrl] = useState("");
+  const [urlEncoded, setUrlEncoded] = useState("");
 
   const baseURL =
     "https://us-central1-termos-contratos.cloudfunctions.net/api/";
@@ -44,63 +45,73 @@ function App() {
   };
 
   useEffect(() => {
-    console.log("pdf>>>>>>", pdf);
-  }, [pdf]);
+    const urlEncoded = encodeURIComponent(checkout);
+    setUrlEncoded(urlEncoded);
+    console.log(urlEncoded);
+  }, [checkout]);
 
   return (
-    <Box padding={2} height="100vh" bgcolor="#F3F3F3">
+    <>
       <NavBar />
+      <Box height="100vh" bgcolor="#F3F3F3">
+        <Grid container p={10}>
+          <Grid item xs={12} md={6} lg={6} padding={2}>
+            <BlockUI blocked={false}>
+              <Panel header="Armazenamento">
+                <PDFUpload setUrl={setUrl} />
+                <PDFList />
+              </Panel>
+            </BlockUI>
+          </Grid>
+          <Grid item xs={12} md={6} lg={6} padding={2}>
+            <BlockUI blocked={false}>
+              <Panel header="Criação da Página">
+                <CPFType setType={setType} />
+                <PDFSelect setPDF={setPDF} pdf={pdf} />
+                <CheckoutLink checkout={checkout} setCheckout={setCheckout} />
+                <ProductName product={product} setProduct={setProduct} />
 
-      <Grid container>
-        <Grid item xs={12} md={6} lg={6} padding={2}>
-          <BlockUI blocked={false}>
-            <Panel header="Armazenamento">
-              <PDFUpload setUrl={setUrl} />
-              <PDFList />
-            </Panel>
-          </BlockUI>
-        </Grid>
-        <Grid item xs={12} md={6} lg={6} padding={2}>
-          <BlockUI blocked={false}>
-            <Panel header="Criação da Página">
-              <CPFType setType={setType} />
-              <PDFSelect setPDF={setPDF} pdf={pdf} />
-              <CheckoutLink checkout={checkout} setCheckout={setCheckout} />
-              <ProductName product={product} setProduct={setProduct} />
-
-              <Box mt={2}>
-                <Button
-                  // disabled={!type || !pdf || !checkout || !product}
-                  variant="contained"
-                  onClick={() =>
-                    setLink(
-                      `https://termos-contratos.web.app/Contrato/${type}/${pdf}/${checkout}/${product}`
-                    )
-                  }
+                <Box mt={2} width="100%" justifyContent="center" display="flex">
+                  <Button
+                    // disabled={!type || !pdf || !checkout || !product}
+                    variant="contained"
+                    style={{ minWidth: "200px", backgroundColor: "#EF7779" }}
+                    onClick={() => {
+                      const link = `https://termos-contratos.web.app/Contrato/${type}/${pdf}/${product}?link=${urlEncoded}`;
+                      setLink(link);
+                    }}
+                  >
+                    Gerar Link
+                  </Button>
+                </Box>
+                <Box
+                  display="flex"
+                  justifyContent="center"
+                  alignContent="center"
+                  alignItems="center"
                 >
-                  Gerar Link
-                </Button>
-              </Box>
-              <Box
-                mt={2}
-                borderRadius={"5px"}
-                border="1px solid #ccc"
-                display="flex"
-                alignItems="center"
-                justifyContent="space-between"
-              >
-                <Typography mx={2}>
-                  {link ? link : "Link para o cliente"}
-                </Typography>
-                <IconButton onClick={handleCopyClick}>
-                  <ContentCopyIcon />
-                </IconButton>
-              </Box>
-            </Panel>
-          </BlockUI>
+                  <Box
+                    mt={2}
+                    borderRadius={"5px"}
+                    border="1px solid #ccc"
+                    overflow="hidden"
+                    minWidth={"90%"}
+                    height={50}
+                  >
+                    <Typography mx={2}>
+                      {link ? link : "Link para o cliente"}
+                    </Typography>
+                  </Box>
+                  <IconButton onClick={handleCopyClick}>
+                    <ContentCopyIcon />
+                  </IconButton>
+                </Box>
+              </Panel>
+            </BlockUI>
+          </Grid>
         </Grid>
-      </Grid>
-    </Box>
+      </Box>
+    </>
   );
 }
 
