@@ -28,9 +28,11 @@ import NavBar from "./components/NavBar";
 function App() {
   const [type, setType] = useState("");
   const [pdf, setPDF] = useState("");
-  const [checkout, setCheckout] = useState("");
+  const [checkout, setCheckout] = useState("guru");
   const [product, setProduct] = useState("");
   const [link, setLink] = useState("");
+  const [url, setUrl] = useState("");
+
   const baseURL =
     "https://us-central1-termos-contratos.cloudfunctions.net/api/";
 
@@ -40,6 +42,11 @@ function App() {
       .then(() => console.log("Texto copiado com sucesso!"))
       .catch((err) => console.error("Erro ao copiar texto: ", err));
   };
+
+  useEffect(() => {
+    console.log("pdf>>>>>>", pdf);
+  }, [pdf]);
+
   return (
     <Box padding={2} height="100vh" bgcolor="#F3F3F3">
       <NavBar />
@@ -48,7 +55,7 @@ function App() {
         <Grid item xs={12} md={6} lg={6} padding={2}>
           <BlockUI blocked={false}>
             <Panel header="Armazenamento">
-              <PDFUpload />
+              <PDFUpload setUrl={setUrl} />
               <PDFList />
             </Panel>
           </BlockUI>
@@ -63,11 +70,11 @@ function App() {
 
               <Box mt={2}>
                 <Button
-                  disabled={!type || !pdf || !checkout || !product}
+                  // disabled={!type || !pdf || !checkout || !product}
                   variant="contained"
                   onClick={() =>
                     setLink(
-                      `https://termos-contratos.firebaseapp.com/Contrato/${type}/${pdf}/${checkout}/${product}`
+                      `https://termos-contratos.web.app/Contrato/${type}/${pdf}/${checkout}/${product}`
                     )
                   }
                 >

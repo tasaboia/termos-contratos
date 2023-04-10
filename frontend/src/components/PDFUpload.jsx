@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
-import { getStorage, ref, uploadBytes } from "firebase/storage";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { initializeApp } from "firebase/app";
 
 import { Toast } from "primereact/toast";
@@ -12,6 +12,7 @@ import { Button } from "primereact/button";
 import { Tooltip } from "primereact/tooltip";
 import { Tag } from "primereact/tag";
 import { Box, Typography } from "@mui/material";
+
 // ------------------ configuracao firebase
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -22,7 +23,7 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
-export default function PDFUpload() {
+export default function PDFUpload({ setUrl }) {
   const [error, setError] = useState("");
   const [selectedFile, setSelectedFile] = useState();
   const toast = useRef(null);
@@ -37,6 +38,7 @@ export default function PDFUpload() {
     setSelectedFile(file);
   };
 
+  //envio de file para o backend
   const handleUpload = async (event) => {
     // convert file to base64 encoded
     const file = event.files[0];
@@ -48,8 +50,10 @@ export default function PDFUpload() {
 
     const storageRef = ref(storage, "pdfs/" + selectedFile.name);
 
-    uploadBytes(storageRef, selectedFile).then((snapshot) => {
+    uploadBytes(storageRef, selectedFile).then(async (snapshot) => {
       console.log("Arquivo carregado com sucesso");
+      const downloadURL = await getDownloadURL(storageRef);
+      setUrl(downloadURL);
     });
   };
 
