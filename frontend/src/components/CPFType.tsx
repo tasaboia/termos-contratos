@@ -4,7 +4,7 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 interface IProp {
   setType: (pdf: string) => void;
@@ -17,9 +17,7 @@ export default function CPFType({ setType }: IProp) {
   return (
     <Box>
       <FormControl>
-        <FormLabel id="demo-radio-buttons-group-label">
-          Tipo de Página
-        </FormLabel>
+        <Typography>Tipo de Página</Typography>
         <RadioGroup
           row
           aria-labelledby="demo-radio-buttons-group-label"
@@ -28,13 +26,32 @@ export default function CPFType({ setType }: IProp) {
         >
           <FormControlLabel
             value="guru"
-            control={<Radio />}
+            control={<Radio sx={{ color: "#EF7779" }} />}
             label="Pagamento: Guru"
+            sx={{
+              color: "#EF7779",
+              "& .MuiRadio-colorPrimary.Mui-checked": {
+                color: "#EF7779", // cor do texto quando checked
+              },
+              "&.Mui-checked": {
+                color: "#EF7779",
+              },
+            }}
           />
           <FormControlLabel
             value="pix-boleto"
-            control={<Radio />}
+            control={<Radio sx={{ color: "#EF7779" }} />}
             label="Pagamento: PIX/Boleto "
+            sx={{
+              color: "#EF7779",
+              "& .MuiRadio-colorPrimary.Mui-checked": {
+                color: "#EF7779", // cor do texto quando checked
+              },
+              "&.Mui-checked": {
+                color: "#EF7779",
+              },
+            }}
+            labelPlacement="end"
           />
         </RadioGroup>
       </FormControl>
