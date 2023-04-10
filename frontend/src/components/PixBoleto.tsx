@@ -12,6 +12,7 @@ import {
 import form from "../assets/form.png";
 import { InputText } from "primereact/inputtext";
 import ClientForm from "./ClientForm";
+import NavBar from "./NavBar";
 
 interface IProp {
   url: string | undefined;
