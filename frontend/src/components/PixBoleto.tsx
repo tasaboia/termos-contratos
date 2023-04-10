@@ -25,7 +25,7 @@ export default function PixBoleto({ url }: IProp) {
   return (
     <>
       <NavBar />
-      <Grid container>
+      <Grid container pt={10}>
         <Grid item xs={12} md={6} lg={4} padding={2} color="white">
           <Box bgcolor="#EF7779" p={5} borderRadius={10}>
             <Typography mb={2} variant="h3">
