@@ -24,7 +24,6 @@ import ProductName from "./components/ProductName";
 import CPFType from "./components/CPFType";
 import { BlockUI } from "primereact/blockui";
 import { Panel } from "primereact/panel";
-import NavBar from "./components/NavBar";
 function App() {
   const [type, setType] = useState("");
   const [pdf, setPDF] = useState("");
@@ -51,67 +50,64 @@ function App() {
   }, [checkout]);
 
   return (
-    <>
-      <NavBar />
-      <Box height="100vh" bgcolor="#F3F3F3">
-        <Grid container p={10}>
-          <Grid item xs={12} md={6} lg={6} padding={2}>
-            <BlockUI blocked={false}>
-              <Panel header="Armazenamento">
-                <PDFUpload setUrl={setUrl} />
-                <PDFList />
-              </Panel>
-            </BlockUI>
-          </Grid>
-          <Grid item xs={12} md={6} lg={6} padding={2}>
-            <BlockUI blocked={false}>
-              <Panel header="Criação da Página">
-                <CPFType setType={setType} />
-                <PDFSelect setPDF={setPDF} pdf={pdf} />
-                <CheckoutLink checkout={checkout} setCheckout={setCheckout} />
-                <ProductName product={product} setProduct={setProduct} />
-
-                <Box mt={2} width="100%" justifyContent="center" display="flex">
-                  <Button
-                    // disabled={!type || !pdf || !checkout || !product}
-                    variant="contained"
-                    style={{ minWidth: "200px", backgroundColor: "#EF7779" }}
-                    onClick={() => {
-                      const link = `https://termos-contratos.web.app/Contrato/${type}/${pdf}/${product}?link=${urlEncoded}`;
-                      setLink(link);
-                    }}
-                  >
-                    Gerar Link
-                  </Button>
-                </Box>
-                <Box
-                  display="flex"
-                  justifyContent="center"
-                  alignContent="center"
-                  alignItems="center"
-                >
-                  <Box
-                    mt={2}
-                    borderRadius={"5px"}
-                    border="1px solid #ccc"
-                    overflow="hidden"
-                    minWidth={"90%"}
-                    height={50}
-                  >
-                    <Typography mx={2}>
-                      {link ? link : "Link para o cliente"}
-                    </Typography>
-                  </Box>
-                  <IconButton onClick={handleCopyClick}>
-                    <ContentCopyIcon />
-                  </IconButton>
-                </Box>
-              </Panel>
-            </BlockUI>
-          </Grid>
+    <Box height="100vh" bgcolor="#F3F3F3">
+      <Grid container>
+        <Grid item xs={12} md={6} lg={6} padding={2}>
+          <BlockUI blocked={false}>
+            <Panel header="Armazenamento">
+              <PDFUpload setUrl={setUrl} />
+              <PDFList />
+            </Panel>
+          </BlockUI>
         </Grid>
-      </Box>
-    </>
+        <Grid item xs={12} md={6} lg={6} padding={2}>
+          <BlockUI blocked={false}>
+            <Panel header="Criação da Página">
+              <CPFType setType={setType} />
+              <PDFSelect setPDF={setPDF} pdf={pdf} />
+              <CheckoutLink checkout={checkout} setCheckout={setCheckout} />
+              <ProductName product={product} setProduct={setProduct} />
+
+              <Box mt={2} width="100%" justifyContent="center" display="flex">
+                <Button
+                  // disabled={!type || !pdf || !checkout || !product}
+                  variant="contained"
+                  style={{ minWidth: "200px", backgroundColor: "#EF7779" }}
+                  onClick={() => {
+                    const link = `https://termos-contratos.web.app/Contrato/${type}/${pdf}/${product}?link=${urlEncoded}`;
+                    setLink(link);
+                  }}
+                >
+                  Gerar Link
+                </Button>
+              </Box>
+              <Box
+                display="flex"
+                justifyContent="center"
+                alignContent="center"
+                alignItems="center"
+              >
+                <Box
+                  mt={2}
+                  borderRadius={"5px"}
+                  border="1px solid #ccc"
+                  overflow="hidden"
+                  minWidth={"90%"}
+                  height={50}
+                >
+                  <Typography mx={2}>
+                    {link ? link : "Link para o cliente"}
+                  </Typography>
+                </Box>
+                <IconButton onClick={handleCopyClick}>
+                  <ContentCopyIcon />
+                </IconButton>
+              </Box>
+            </Panel>
+          </BlockUI>
+        </Grid>
+      </Grid>
+    </Box>
   );
 }
 
